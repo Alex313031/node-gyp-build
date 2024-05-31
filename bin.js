@@ -22,7 +22,7 @@ function build () {
   try {
     var pkg = require('node-gyp/package.json')
     args = [
-      process.execPath,
+      '"' + process.execPath + '"',
       path.join(require.resolve('node-gyp/package.json'), '..', typeof pkg.bin === 'string' ? pkg.bin : pkg.bin['node-gyp']),
       'rebuild'
     ]
