@@ -18,11 +18,18 @@ if (!buildFromSource()) {
 function build () {
   var win32 = os.platform() === 'win32'
   var args = [win32 ? 'node-gyp.cmd' : 'node-gyp', 'rebuild']
+  let execpath;
+  if (win32) {
+    execpath = '"' + process.execPath + '"';
+  } else {
+    execpath = process.execPath;
+  }
 
   try {
     var pkg = require('node-gyp/package.json')
+    console.log('process.execPath is : ' + execpath)
     args = [
-      '"' + process.execPath + '"',
+      execpath,
       path.join(require.resolve('node-gyp/package.json'), '..', typeof pkg.bin === 'string' ? pkg.bin : pkg.bin['node-gyp']),
       'rebuild'
     ]
